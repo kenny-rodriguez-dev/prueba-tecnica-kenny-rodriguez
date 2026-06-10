@@ -1,0 +1,16 @@
+# Dependencias y builds
+node_modules/
+dist/
+.angular/
+
+# Variables de entorno (se incluye .env.example como referencia)
+.env
+
+# Carpeta de archivos fuente del frontend (se copia dentro de Frontend y luego se borra)
+frontend-src/
+
+# Sistema / IDE
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
