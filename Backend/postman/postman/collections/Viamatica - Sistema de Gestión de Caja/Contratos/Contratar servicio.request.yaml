@@ -1,0 +1,16 @@
+$kind: http-request
+description: Crea el contrato en estado VIG (vigente) con fecha fin = inicio + months.
+url: "{{base_url}}/api/contracts"
+method: POST
+headers:
+  Content-Type: application/json
+body:
+  type: json
+  content: |-
+    {
+      "client_clientid": 1,
+      "service_serviceid": 1,
+      "methodpayment_methodpaymentid": 1,
+      "months": 12
+    }
+order: 3000

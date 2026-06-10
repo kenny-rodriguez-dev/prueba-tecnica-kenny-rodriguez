@@ -1,0 +1,13 @@
+$kind: http-request
+description: Solo GESTOR/ADMIN. Máximo 2 usuarios por caja.
+url: "{{base_url}}/api/catalogs/cashes/2/assign"
+method: POST
+headers:
+  Content-Type: application/json
+body:
+  type: json
+  content: |-
+    {
+      "user_userid": 3
+    }
+order: 8000

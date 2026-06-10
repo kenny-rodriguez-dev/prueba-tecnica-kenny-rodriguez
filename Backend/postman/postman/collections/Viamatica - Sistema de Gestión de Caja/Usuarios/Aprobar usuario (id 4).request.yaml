@@ -1,0 +1,5 @@
+$kind: http-request
+description: Solo ADMINISTRADOR. Aprueba un usuario creado por un gestor (PEN -> ACT).
+url: "{{base_url}}/api/users/4/approve"
+method: PUT
+order: 6000

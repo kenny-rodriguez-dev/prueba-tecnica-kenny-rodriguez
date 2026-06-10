@@ -1,0 +1,1274 @@
+{
+  "info": {
+    "name": "Viamatica - Sistema de Gestión de Caja",
+    "description": "Colección de la prueba técnica (Node.js + Angular).\n\nCÓMO USARLA:\n1. Levanta el backend (puerto 3000).\n2. Ejecuta 'Auth > Login (admin)': el token JWT se guarda automáticamente en la variable {{token}} y el resto de peticiones lo usan.\n3. Para probar permisos por rol, ejecuta el login del gestor o del cajero.\n\nUsuarios demo: admin1234/Admin1234, gestor123/Gestor123, cajero123/Cajero123",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{token}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:3000"
+    },
+    {
+      "key": "token",
+      "value": ""
+    }
+  ],
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Login (admin)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/auth/login",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "login"
+              ]
+            },
+            "description": "Guarda el token automáticamente. Acepta username o email. Se bloquea al 3er intento fallido.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"login\": \"admin1234\",\n  \"password\": \"Admin1234\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "auth": {
+              "type": "noauth"
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const data = pm.response.json();",
+                  "if (data.token) {",
+                  "    pm.collectionVariables.set('token', data.token);",
+                  "    console.log('Token guardado para el resto de peticiones');",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Login (gestor)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/auth/login",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "login"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"login\": \"gestor123\",\n  \"password\": \"Gestor123\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "auth": {
+              "type": "noauth"
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const data = pm.response.json();",
+                  "if (data.token) {",
+                  "    pm.collectionVariables.set('token', data.token);",
+                  "    console.log('Token guardado para el resto de peticiones');",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Login (cajero)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/auth/login",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "login"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"login\": \"cajero123\",\n  \"password\": \"Cajero123\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "auth": {
+              "type": "noauth"
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const data = pm.response.json();",
+                  "if (data.token) {",
+                  "    pm.collectionVariables.set('token', data.token);",
+                  "    console.log('Token guardado para el resto de peticiones');",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Logout",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/auth/logout",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "logout"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Recuperar contraseña",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/auth/recover",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "recover"
+              ]
+            },
+            "description": "Respuesta genérica (no revela si el correo existe). La nueva contraseña debe cumplir el formato.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"usuario@mail.com\",\n  \"newPassword\": \"NuevaClave1\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "auth": {
+              "type": "noauth"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Usuarios",
+      "item": [
+        {
+          "name": "Listar usuarios",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/users",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "users"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Listar usuarios por estado",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/users?status=ACT",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "users"
+              ],
+              "query": [
+                {
+                  "key": "status",
+                  "value": "ACT"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Usuarios pendientes de aprobación",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/users/pending",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "users",
+                "pending"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Crear usuario",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/users",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "users"
+              ]
+            },
+            "description": "Username: 8-20 caracteres, letras + al menos un número, sin especiales. Password: 8-30, una mayúscula y un número. Si lo crea un GESTOR queda en estado PEN (pendiente de aprobación).",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"cajero002\",\n  \"email\": \"cajero002@mail.com\",\n  \"password\": \"Cajero1234\",\n  \"rol_rolid\": 3\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Carga masiva de usuarios",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/users/bulk",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "users",
+                "bulk"
+              ]
+            },
+            "description": "Solo ADMINISTRADOR. Devuelve creados y errores por fila.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"users\": [\n    {\n      \"username\": \"gestor002\",\n      \"email\": \"gestor002@mail.com\",\n      \"password\": \"Gestor1234\",\n      \"rol_rolid\": 2\n    },\n    {\n      \"username\": \"cajero003\",\n      \"email\": \"cajero003@mail.com\",\n      \"password\": \"Cajero1234\",\n      \"rol_rolid\": 3\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Aprobar usuario (id 4)",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/users/4/approve",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "users",
+                "4",
+                "approve"
+              ]
+            },
+            "description": "Solo ADMINISTRADOR. Aprueba un usuario creado por un gestor (PEN -> ACT)."
+          }
+        },
+        {
+          "name": "Actualizar usuario (id 4)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/users/4",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "users",
+                "4"
+              ]
+            },
+            "description": "Permite cambiar campos y estado. Poner estado ACT también desbloquea (reinicia intentos fallidos).",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"nuevo@mail.com\",\n  \"userstatus_statusid\": \"ACT\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Eliminar usuario (id 4)",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/users/4",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "users",
+                "4"
+              ]
+            },
+            "description": "Eliminación LÓGICA (deleted = true)."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Clientes",
+      "item": [
+        {
+          "name": "Listar clientes",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/clients",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "clients"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Buscar por identificación",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/clients?identification=0912345678",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "clients"
+              ],
+              "query": [
+                {
+                  "key": "identification",
+                  "value": "0912345678"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Crear cliente",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/clients",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "clients"
+              ]
+            },
+            "description": "Identificación: 10-13 dígitos, única. Teléfono: mínimo 10 dígitos, empieza con 09. Dirección y referencia: 20-100 caracteres.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Juan\",\n  \"lastname\": \"Pérez\",\n  \"identification\": \"0912345678\",\n  \"email\": \"juan.perez@mail.com\",\n  \"phonenumber\": \"0991234567\",\n  \"address\": \"Av. 9 de Octubre 1234 y Malecón, Guayaquil\",\n  \"referenceaddress\": \"Frente al parque central, edificio azul de dos pisos\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Carga masiva de clientes",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/clients/bulk",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "clients",
+                "bulk"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"clients\": [\n    {\n      \"name\": \"María\",\n      \"lastname\": \"González\",\n      \"identification\": \"0923456789\",\n      \"email\": \"maria.gonzalez@mail.com\",\n      \"phonenumber\": \"0987654321\",\n      \"address\": \"Cdla. Kennedy Norte, Mz 305 Villa 12, Guayaquil\",\n      \"referenceaddress\": \"A dos cuadras del centro comercial, casa esquinera\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Actualizar cliente (id 1)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/clients/1",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "clients",
+                "1"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"phonenumber\": \"0998887766\",\n  \"status\": \"ACT\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Eliminar cliente (id 1)",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/clients/1",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "clients",
+                "1"
+              ]
+            },
+            "description": "Eliminación LÓGICA."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Turnos",
+      "item": [
+        {
+          "name": "Listar turnos de hoy",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/turns?hoy=true",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "turns"
+              ],
+              "query": [
+                {
+                  "key": "hoy",
+                  "value": "true"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Turnos atendidos hoy (según rol)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/turns/stats/today",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "turns",
+                "stats",
+                "today"
+              ]
+            },
+            "description": "Cajero: los suyos. Gestor: los que asignó. Admin: total del sistema."
+          }
+        },
+        {
+          "name": "Crear turno",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/turns",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "turns"
+              ]
+            },
+            "description": "Solo GESTOR/ADMIN. La descripción se genera automáticamente según el tipo de atención: AC0001, PS0001... Valida que el cajero esté asignado a la caja.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"cash_cashid\": 1,\n  \"cajero_userid\": 3,\n  \"attentiontypeid\": \"AC\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Atender turno (id 1)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/turns/1/attend",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "turns",
+                "1",
+                "attend"
+              ]
+            },
+            "description": "Solo CAJERO y solo sus propios turnos (login cajero123). Valida que la caja no esté en uso por otro usuario.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"client_clientid\": 1\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Eliminar turno (id 1)",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/turns/1",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "turns",
+                "1"
+              ]
+            },
+            "description": "Eliminación LÓGICA."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Contratos",
+      "item": [
+        {
+          "name": "Listar contratos",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/contracts",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "contracts"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Contratos de un cliente",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/contracts?clientid=1",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "contracts"
+              ],
+              "query": [
+                {
+                  "key": "clientid",
+                  "value": "1"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Contratar servicio",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/contracts",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "contracts"
+              ]
+            },
+            "description": "Crea el contrato en estado VIG (vigente) con fecha fin = inicio + months.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"client_clientid\": 1,\n  \"service_serviceid\": 1,\n  \"methodpayment_methodpaymentid\": 1,\n  \"months\": 12\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Cambio de servicio (id 1)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/contracts/1/change-service",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "contracts",
+                "1",
+                "change-service"
+              ]
+            },
+            "description": "USA LA FUNCIÓN PostgreSQL fn_cambiar_servicio: el contrato VIG pasa a SUS y se crea un nuevo registro en REN manteniendo la fecha fin original.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"service_serviceid\": 2\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Cambio de forma de pago (id 1)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/contracts/1/payment-method",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "contracts",
+                "1",
+                "payment-method"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"methodpayment_methodpaymentid\": 2\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Cancelar contrato (id 1)",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/contracts/1/cancel",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "contracts",
+                "1",
+                "cancel"
+              ]
+            },
+            "description": "Actualiza el estado a CAN y la fecha fin a hoy."
+          }
+        },
+        {
+          "name": "Eliminar contrato (id 1)",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/contracts/1",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "contracts",
+                "1"
+              ]
+            },
+            "description": "Eliminación LÓGICA."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Pagos",
+      "item": [
+        {
+          "name": "Listar pagos",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/payments",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "payments"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Pagos de un cliente",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/payments?clientid=1",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "payments"
+              ],
+              "query": [
+                {
+                  "key": "clientid",
+                  "value": "1"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Registrar pago",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/payments",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "payments"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"client_clientid\": 1,\n  \"contract_contractid\": 1,\n  \"amount\": 30.0\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Catálogos y cajas",
+      "item": [
+        {
+          "name": "Roles",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/catalogs/roles",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "catalogs",
+                "roles"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Estados de usuario",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/catalogs/userstatuses",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "catalogs",
+                "userstatuses"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Servicios de internet",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/catalogs/services",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "catalogs",
+                "services"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Formas de pago",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/catalogs/methodpayments",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "catalogs",
+                "methodpayments"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Tipos de atención",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/catalogs/attentiontypes",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "catalogs",
+                "attentiontypes"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Cajas con usuarios asignados",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/catalogs/cashes",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "catalogs",
+                "cashes"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Cajeros activos",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/catalogs/cajeros",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "catalogs",
+                "cajeros"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Asignar cajero a caja",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/catalogs/cashes/2/assign",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "catalogs",
+                "cashes",
+                "2",
+                "assign"
+              ]
+            },
+            "description": "Solo GESTOR/ADMIN. Máximo 2 usuarios por caja.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"user_userid\": 3\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Abrir caja (cajero)",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/catalogs/cashes/1/open",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "catalogs",
+                "cashes",
+                "1",
+                "open"
+              ]
+            },
+            "description": "Solo CAJERO (login cajero123). Falla si otro usuario la tiene abierta."
+          }
+        },
+        {
+          "name": "Cerrar caja (cajero)",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/catalogs/cashes/1/close",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "catalogs",
+                "cashes",
+                "1",
+                "close"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Dashboard (admin)",
+      "item": [
+        {
+          "name": "Indicadores de usuarios",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/dashboard/users",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "dashboard",
+                "users"
+              ]
+            },
+            "description": "Sesión activa/inactiva, bloqueados, activos, pendientes."
+          }
+        },
+        {
+          "name": "Resumen cajas/cajeros/gestores",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/dashboard/summary?from=2026-06-01&to=2026-06-30",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "dashboard",
+                "summary"
+              ],
+              "query": [
+                {
+                  "key": "from",
+                  "value": "2026-06-01"
+                },
+                {
+                  "key": "to",
+                  "value": "2026-06-30"
+                }
+              ]
+            },
+            "description": "Filtros de fecha opcionales (por defecto: hoy)."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Menú",
+      "item": [
+        {
+          "name": "Menú dinámico según rol",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/menu",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "menu"
+              ]
+            },
+            "description": "Cargado desde la BD según el rol del JWT. Pruébalo con los 3 logins para ver menús distintos."
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,5 @@
+$kind: http-request
+description: Cargado desde la BD según el rol del JWT. Pruébalo con los 3 logins para ver menús distintos.
+url: "{{base_url}}/api/menu"
+method: GET
+order: 1000

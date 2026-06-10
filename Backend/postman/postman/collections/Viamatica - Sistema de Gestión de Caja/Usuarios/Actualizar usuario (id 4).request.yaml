@@ -1,0 +1,14 @@
+$kind: http-request
+description: Permite cambiar campos y estado. Poner estado ACT también desbloquea (reinicia intentos fallidos).
+url: "{{base_url}}/api/users/4"
+method: PUT
+headers:
+  Content-Type: application/json
+body:
+  type: json
+  content: |-
+    {
+      "email": "nuevo@mail.com",
+      "userstatus_statusid": "ACT"
+    }
+order: 7000

@@ -1,0 +1,4 @@
+$kind: http-request
+url: "{{base_url}}/api/catalogs/cashes/1/close"
+method: POST
+order: 10000

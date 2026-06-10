@@ -1,0 +1,15 @@
+$kind: http-request
+description: "Solo GESTOR/ADMIN. La descripción se genera automáticamente según el tipo de atención: AC0001, PS0001... Valida que el cajero esté asignado a la caja."
+url: "{{base_url}}/api/turns"
+method: POST
+headers:
+  Content-Type: application/json
+body:
+  type: json
+  content: |-
+    {
+      "cash_cashid": 1,
+      "cajero_userid": 3,
+      "attentiontypeid": "AC"
+    }
+order: 3000

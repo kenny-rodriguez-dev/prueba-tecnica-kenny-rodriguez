@@ -1,0 +1,19 @@
+$kind: collection
+description: |-
+  Colección de la prueba técnica (Node.js + Angular).
+
+  CÓMO USARLA:
+  1. Levanta el backend (puerto 3000).
+  2. Ejecuta 'Auth > Login (admin)': el token JWT se guarda automáticamente en la variable {{token}} y el resto de peticiones lo usan.
+  3. Para probar permisos por rol, ejecuta el login del gestor o del cajero.
+
+  Usuarios demo: admin1234/Admin1234, gestor123/Gestor123, cajero123/Cajero123
+variables:
+  base_url: http://localhost:3000
+  token: ""
+auth:
+  - id: 6c15ba9a-7711-4c74-aab0-28673d15cf60
+    type: bearer
+    name: bearer auth
+    credentials:
+      token: "{{token}}"

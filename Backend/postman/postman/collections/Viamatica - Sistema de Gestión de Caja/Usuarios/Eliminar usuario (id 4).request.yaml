@@ -1,0 +1,5 @@
+$kind: http-request
+description: Eliminación LÓGICA (deleted = true).
+url: "{{base_url}}/api/users/4"
+method: DELETE
+order: 8000

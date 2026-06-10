@@ -1,0 +1,26 @@
+$kind: http-request
+description: Solo ADMINISTRADOR. Devuelve creados y errores por fila.
+url: "{{base_url}}/api/users/bulk"
+method: POST
+headers:
+  Content-Type: application/json
+body:
+  type: json
+  content: |-
+    {
+      "users": [
+        {
+          "username": "gestor002",
+          "email": "gestor002@mail.com",
+          "password": "Gestor1234",
+          "rol_rolid": 2
+        },
+        {
+          "username": "cajero003",
+          "email": "cajero003@mail.com",
+          "password": "Cajero1234",
+          "rol_rolid": 3
+        }
+      ]
+    }
+order: 5000

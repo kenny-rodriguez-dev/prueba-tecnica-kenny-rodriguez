@@ -1,0 +1,22 @@
+$kind: http-request
+url: "{{base_url}}/api/clients/bulk"
+method: POST
+headers:
+  Content-Type: application/json
+body:
+  type: json
+  content: |-
+    {
+      "clients": [
+        {
+          "name": "María",
+          "lastname": "González",
+          "identification": "0923456789",
+          "email": "maria.gonzalez@mail.com",
+          "phonenumber": "0987654321",
+          "address": "Cdla. Kennedy Norte, Mz 305 Villa 12, Guayaquil",
+          "referenceaddress": "A dos cuadras del centro comercial, casa esquinera"
+        }
+      ]
+    }
+order: 4000

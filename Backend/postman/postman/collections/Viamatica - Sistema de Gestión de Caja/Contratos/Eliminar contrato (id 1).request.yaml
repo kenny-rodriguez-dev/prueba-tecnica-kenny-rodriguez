@@ -1,0 +1,5 @@
+$kind: http-request
+description: Eliminación LÓGICA.
+url: "{{base_url}}/api/contracts/1"
+method: DELETE
+order: 7000

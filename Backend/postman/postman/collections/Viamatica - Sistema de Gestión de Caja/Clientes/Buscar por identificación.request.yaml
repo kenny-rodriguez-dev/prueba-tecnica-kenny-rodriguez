@@ -1,0 +1,6 @@
+$kind: http-request
+url: "{{base_url}}/api/clients?identification=0912345678"
+method: GET
+queryParams:
+  identification: "0912345678"
+order: 2000

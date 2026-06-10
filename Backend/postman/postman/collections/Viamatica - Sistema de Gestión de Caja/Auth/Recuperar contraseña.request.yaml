@@ -1,0 +1,16 @@
+$kind: http-request
+description: Respuesta genérica (no revela si el correo existe). La nueva contraseña debe cumplir el formato.
+url: "{{base_url}}/api/auth/recover"
+method: POST
+headers:
+  Content-Type: application/json
+body:
+  type: json
+  content: |-
+    {
+      "email": "usuario@mail.com",
+      "newPassword": "NuevaClave1"
+    }
+auth:
+  type: noauth
+order: 5000

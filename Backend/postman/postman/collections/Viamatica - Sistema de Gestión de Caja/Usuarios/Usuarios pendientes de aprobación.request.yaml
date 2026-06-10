@@ -1,0 +1,4 @@
+$kind: http-request
+url: "{{base_url}}/api/users/pending"
+method: GET
+order: 3000

@@ -1,0 +1,5 @@
+$kind: http-request
+description: "Cajero: los suyos. Gestor: los que asignó. Admin: total del sistema."
+url: "{{base_url}}/api/turns/stats/today"
+method: GET
+order: 2000

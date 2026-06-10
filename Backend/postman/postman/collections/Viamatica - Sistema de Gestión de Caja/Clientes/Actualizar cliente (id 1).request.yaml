@@ -1,0 +1,13 @@
+$kind: http-request
+url: "{{base_url}}/api/clients/1"
+method: PUT
+headers:
+  Content-Type: application/json
+body:
+  type: json
+  content: |-
+    {
+      "phonenumber": "0998887766",
+      "status": "ACT"
+    }
+order: 5000

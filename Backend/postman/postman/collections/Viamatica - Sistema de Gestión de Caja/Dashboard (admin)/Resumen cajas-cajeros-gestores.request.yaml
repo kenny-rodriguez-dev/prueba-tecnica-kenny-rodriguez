@@ -1,0 +1,9 @@
+$kind: http-request
+name: Resumen cajas/cajeros/gestores
+description: "Filtros de fecha opcionales (por defecto: hoy)."
+url: "{{base_url}}/api/dashboard/summary?from=2026-06-01&to=2026-06-30"
+method: GET
+queryParams:
+  from: 2026-06-01
+  to: 2026-06-30
+order: 2000

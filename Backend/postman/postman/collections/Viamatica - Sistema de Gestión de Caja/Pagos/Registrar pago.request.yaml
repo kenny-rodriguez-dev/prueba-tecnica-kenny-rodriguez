@@ -1,0 +1,14 @@
+$kind: http-request
+url: "{{base_url}}/api/payments"
+method: POST
+headers:
+  Content-Type: application/json
+body:
+  type: json
+  content: |-
+    {
+      "client_clientid": 1,
+      "contract_contractid": 1,
+      "amount": 30.0
+    }
+order: 3000

@@ -1,0 +1,16 @@
+$kind: http-request
+description: "Username: 8-20 caracteres, letras + al menos un número, sin especiales. Password: 8-30, una mayúscula y un número. Si lo crea un GESTOR queda en estado PEN (pendiente de aprobación)."
+url: "{{base_url}}/api/users"
+method: POST
+headers:
+  Content-Type: application/json
+body:
+  type: json
+  content: |-
+    {
+      "username": "cajero002",
+      "email": "cajero002@mail.com",
+      "password": "Cajero1234",
+      "rol_rolid": 3
+    }
+order: 4000

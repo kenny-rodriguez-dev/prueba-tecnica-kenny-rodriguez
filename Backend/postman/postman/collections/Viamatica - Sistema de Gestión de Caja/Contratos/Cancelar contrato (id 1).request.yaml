@@ -1,0 +1,5 @@
+$kind: http-request
+description: Actualiza el estado a CAN y la fecha fin a hoy.
+url: "{{base_url}}/api/contracts/1/cancel"
+method: PUT
+order: 6000

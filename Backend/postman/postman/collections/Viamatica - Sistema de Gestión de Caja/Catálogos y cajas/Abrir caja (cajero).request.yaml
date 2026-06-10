@@ -1,0 +1,5 @@
+$kind: http-request
+description: Solo CAJERO (login cajero123). Falla si otro usuario la tiene abierta.
+url: "{{base_url}}/api/catalogs/cashes/1/open"
+method: POST
+order: 9000

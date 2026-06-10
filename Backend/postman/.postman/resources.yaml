@@ -1,0 +1,13 @@
+# Use this workspace to collaborate
+workspace:
+  id: 8445c58a-7bd8-4356-8706-384f4bb8f568
+
+localResources:
+  collections:
+    - ..\Viamatica.postman_collection.json
+
+# Each entry here maps a local resource to one or more corresponding objects in Postman Cloud
+
+cloudResources:
+  collections:
+    ..\postman\collections\Viamatica - Sistema de Gestión de Caja: 902efc38-614f-4c39-bca5-ea171bee7b48

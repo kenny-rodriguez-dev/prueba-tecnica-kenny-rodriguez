@@ -1,0 +1,6 @@
+$kind: http-request
+url: "{{base_url}}/api/contracts?clientid=1"
+method: GET
+queryParams:
+  clientid: "1"
+order: 2000

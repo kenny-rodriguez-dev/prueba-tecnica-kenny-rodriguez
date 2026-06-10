@@ -1,0 +1,12 @@
+$kind: http-request
+url: "{{base_url}}/api/contracts/1/payment-method"
+method: PUT
+headers:
+  Content-Type: application/json
+body:
+  type: json
+  content: |-
+    {
+      "methodpayment_methodpaymentid": 2
+    }
+order: 5000

@@ -1,0 +1,19 @@
+$kind: http-request
+description: "Identificación: 10-13 dígitos, única. Teléfono: mínimo 10 dígitos, empieza con 09. Dirección y referencia: 20-100 caracteres."
+url: "{{base_url}}/api/clients"
+method: POST
+headers:
+  Content-Type: application/json
+body:
+  type: json
+  content: |-
+    {
+      "name": "Juan",
+      "lastname": "Pérez",
+      "identification": "0912345678",
+      "email": "juan.perez@mail.com",
+      "phonenumber": "0991234567",
+      "address": "Av. 9 de Octubre 1234 y Malecón, Guayaquil",
+      "referenceaddress": "Frente al parque central, edificio azul de dos pisos"
+    }
+order: 3000

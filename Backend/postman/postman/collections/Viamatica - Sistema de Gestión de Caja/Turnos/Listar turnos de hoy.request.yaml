@@ -1,0 +1,6 @@
+$kind: http-request
+url: "{{base_url}}/api/turns?hoy=true"
+method: GET
+queryParams:
+  hoy: "true"
+order: 1000

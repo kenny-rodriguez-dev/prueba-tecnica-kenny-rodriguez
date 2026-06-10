@@ -1,0 +1,13 @@
+$kind: http-request
+description: Solo CAJERO y solo sus propios turnos (login cajero123). Valida que la caja no esté en uso por otro usuario.
+url: "{{base_url}}/api/turns/1/attend"
+method: PUT
+headers:
+  Content-Type: application/json
+body:
+  type: json
+  content: |-
+    {
+      "client_clientid": 1
+    }
+order: 4000

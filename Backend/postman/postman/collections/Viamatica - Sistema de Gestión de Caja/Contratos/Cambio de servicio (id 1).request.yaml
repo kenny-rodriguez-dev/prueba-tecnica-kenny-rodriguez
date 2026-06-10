@@ -1,0 +1,13 @@
+$kind: http-request
+description: "USA LA FUNCIÓN PostgreSQL fn_cambiar_servicio: el contrato VIG pasa a SUS y se crea un nuevo registro en REN manteniendo la fecha fin original."
+url: "{{base_url}}/api/contracts/1/change-service"
+method: PUT
+headers:
+  Content-Type: application/json
+body:
+  type: json
+  content: |-
+    {
+      "service_serviceid": 2
+    }
+order: 4000
