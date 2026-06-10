@@ -1,0 +1,38 @@
+/* Estilos globales del Sistema de Caja */
+
+.sidebar {
+  min-height: 100vh;
+  width: 240px;
+  background: #1b2430;
+}
+.sidebar a {
+  color: #cfd6dd;
+  text-decoration: none;
+  display: block;
+  padding: .65rem 1rem;
+  border-radius: .4rem;
+}
+.sidebar a:hover { background: #27313f; color: #fff; }
+.sidebar a.active { background: #0d6efd; color: #fff; }
+
+.card { border: none; box-shadow: 0 1px 4px rgba(0,0,0,.08); }
+
+/* Overlay de carga global */
+.loading-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(255,255,255,.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+}
+
+/* Toast de mensajes */
+.app-toast {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 2100;
+  min-width: 280px;
+}
