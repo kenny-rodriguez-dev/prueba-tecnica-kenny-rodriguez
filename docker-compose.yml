@@ -1,0 +1,52 @@
+# ============================================================
+# Docker Compose - Sistema de Gestión de Caja (Viamatica)
+# Levanta: PostgreSQL + Backend (Node) + Frontend (Angular/nginx)
+# Uso:  docker compose up --build
+# ============================================================
+services:
+
+  db:
+    image: postgres:16-alpine
+    container_name: caja_db
+    environment:
+      POSTGRES_DB: cajadb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres123
+    ports:
+      - "5434:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d cajadb"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  backend:
+    build: ./Backend
+    container_name: caja_backend
+    environment:
+      PORT: 3000
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_NAME: cajadb
+      DB_USER: postgres
+      DB_PASSWORD: postgres123
+      JWT_SECRET: viamatica_secret_2026
+      JWT_EXPIRES: 8h
+    ports:
+      - "3000:3000"
+    depends_on:
+      db:
+        condition: service_healthy
+
+  frontend:
+    build: ./Frontend
+    container_name: caja_frontend
+    ports:
+      - "4200:80"
+    depends_on:
+      - backend
+
+volumes:
+  pgdata:
