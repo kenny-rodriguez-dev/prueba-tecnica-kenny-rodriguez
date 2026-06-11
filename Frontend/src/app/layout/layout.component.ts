@@ -6,19 +6,36 @@ import { AuthService } from '../core/auth.service';
 import { LoadingService, MessageService } from '../core/ui.services';
 
 // Layout principal: sidebar con el MENÚ CARGADO DESDE LA BASE DE DATOS SEGÚN EL ROL
+// Responsivo: en pantallas pequeñas el menú se oculta; el botón ☰ lo abre
+// y desaparece mientras el menú está abierto (se cierra con la ✕, tocando fuera o al navegar)
 @Component({
   selector: 'app-layout',
   standalone: true,
   imports: [CommonModule, RouterOutlet, RouterLink, RouterLinkActive],
   template: `
+  <!-- Botón de menú: solo en pantallas pequeñas y solo cuando el menú está cerrado -->
+  <button class="btn btn-dark d-md-none hamburger" *ngIf="!sidebarAbierto"
+          (click)="sidebarAbierto = true" aria-label="Abrir menú">
+    <i class="bi bi-list fs-4"></i>
+  </button>
+
   <div class="d-flex">
     <!-- Sidebar -->
-    <aside class="sidebar p-3 d-flex flex-column">
-      <h5 class="text-white mb-1"><i class="bi bi-router me-2"></i>NetCaja</h5>
-      <small class="text-secondary mb-3">Sistema de Gestión de Caja</small>
+    <aside class="sidebar p-3 d-flex flex-column" [class.open]="sidebarAbierto">
+      <div class="d-flex align-items-start justify-content-between mb-3">
+        <div>
+          <h5 class="text-white mb-1"><i class="bi bi-router me-2"></i>NetCaja</h5>
+          <small class="text-secondary">Sistema de Gestión de Caja</small>
+        </div>
+        <!-- Cerrar (solo móvil) -->
+        <button class="btn btn-link text-secondary p-0 d-md-none" (click)="sidebarAbierto = false" aria-label="Cerrar menú">
+          <i class="bi bi-x-lg fs-5"></i>
+        </button>
+      </div>
 
       <nav class="flex-grow-1">
-        <a *ngFor="let item of menu" [routerLink]="item.route" routerLinkActive="active" class="mb-1">
+        <a *ngFor="let item of menu" [routerLink]="item.route" routerLinkActive="active"
+           class="mb-1" (click)="sidebarAbierto = false">
           <i class="bi {{ item.icon }} me-2"></i>{{ item.label }}
         </a>
       </nav>
@@ -32,8 +49,11 @@ import { LoadingService, MessageService } from '../core/ui.services';
       </div>
     </aside>
 
+    <!-- Fondo oscuro al abrir el menú en pantallas pequeñas -->
+    <div class="sidebar-backdrop d-md-none" *ngIf="sidebarAbierto" (click)="sidebarAbierto = false"></div>
+
     <!-- Contenido -->
-    <main class="flex-grow-1 p-4" style="min-height:100vh">
+    <main class="flex-grow-1 p-3 p-md-4 main-content" style="min-height:100vh">
       <router-outlet></router-outlet>
     </main>
   </div>
@@ -54,6 +74,7 @@ import { LoadingService, MessageService } from '../core/ui.services';
 })
 export class LayoutComponent implements OnInit {
   menu: any[] = [];
+  sidebarAbierto = false;
 
   constructor(
     private api: ApiService,

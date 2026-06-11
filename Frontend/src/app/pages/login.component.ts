@@ -3,15 +3,15 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../core/auth.service';
-import { MessageService } from '../core/ui.services';
+import { LoadingService, MessageService } from '../core/ui.services';
 
 @Component({
   selector: 'app-login',
   standalone: true,
   imports: [CommonModule, FormsModule],
   template: `
-  <div class="d-flex align-items-center justify-content-center" style="min-height:100vh">
-    <div class="card p-4" style="width:380px">
+  <div class="d-flex align-items-center justify-content-center p-3" style="min-height:100vh">
+    <div class="card p-4 w-100" style="max-width:380px">
       <div class="text-center mb-3">
         <i class="bi bi-router text-primary" style="font-size:2.5rem"></i>
         <h4 class="mt-2 mb-0">Sistema de Caja</h4>
@@ -59,6 +59,19 @@ import { MessageService } from '../core/ui.services';
       </div>
     </div>
   </div>
+
+  <!-- Loading global (también en el login) -->
+  <div class="loading-overlay" *ngIf="loading.visible()">
+    <div class="spinner-border text-primary" style="width:3rem;height:3rem"></div>
+  </div>
+
+  <!-- Mensajes de éxito / error (también en el login: credenciales incorrectas, bloqueo, etc.) -->
+  <div class="app-toast" *ngIf="msg.message() as m">
+    <div class="alert alert-{{ m.type }} alert-dismissible shadow mb-0">
+      {{ m.text }}
+      <button type="button" class="btn-close" (click)="msg.clear()"></button>
+    </div>
+  </div>
   `
 })
 export class LoginComponent {
@@ -71,7 +84,12 @@ export class LoginComponent {
   nuevaPassword = '';
   intentadoRec = false;
 
-  constructor(private auth: AuthService, private router: Router, private msg: MessageService) {}
+  constructor(
+    private auth: AuthService,
+    private router: Router,
+    public msg: MessageService,
+    public loading: LoadingService
+  ) {}
 
   // Validar que los datos sean ingresados ANTES de consumir el servicio (requisito del PDF)
   entrar() {
